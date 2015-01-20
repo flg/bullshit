@@ -24,7 +24,7 @@ def expose (widget, event):
     cr.set_operator(cairo.OPERATOR_OVER)
 
     # Load image
-    image = cairo.ImageSurface.create_from_png("/home/legoff/.local/share/bullshit.png")
+    image = cairo.ImageSurface.create_from_png("./bullshit.png")
     cr.set_source_surface(image, 0, 0)
     cr.paint()
 
