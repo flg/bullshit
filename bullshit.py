@@ -12,8 +12,7 @@ import time
 import threading
 import argparse
 
-
-image = cairo.ImageSurface.create_from_png('./images/bullshit.png')
+global image
 
 
 class sleep_and_die(threading.Thread):
@@ -51,17 +50,19 @@ def main():
     global image
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--image', type=str, required=False)
-    parser.add_argument('-t', '--time', type=int, default=5, required=False)
+    parser.add_argument('-i', '--image', type=str,
+                        default="./images/bullshit.png",
+                        required=False)
+    parser.add_argument('-t', '--time', type=int,
+                        default=5, required=False)
     args = parser.parse_args()
 
-    if args.image is not None:
-        try:
-            image = cairo.ImageSurface.create_from_png(
-                os.path.expanduser(args.image))
-        except cairo.Error:
-            sys.stderr.write('file "%s" not found\n' % args.image)
-            sys.exit(2)
+    try:
+        image = cairo.ImageSurface.create_from_png(
+            os.path.expanduser(args.image))
+    except cairo.Error:
+        sys.stderr.write('file "%s" not found\n' % args.image)
+        sys.exit(2)
 
     gobject.threads_init()
 
